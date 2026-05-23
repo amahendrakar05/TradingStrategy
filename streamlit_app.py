@@ -353,4 +353,3 @@ st.markdown(
     Data from Yahoo Finance API
     """
 )
-
