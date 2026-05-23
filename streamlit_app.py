@@ -7,14 +7,9 @@ support/resistance levels, and options strategy recommendations.
 import streamlit as st
 import pandas as pd
 from datetime import datetime, timedelta
-import sys
-import os
 
-# Add src to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'src'))
-
-from yahoo_finance import YahooFinanceConnector
-from analysis import TechnicalAnalysis, SupportResistance, DataAnalyzer, OptionsAnalysis
+from src.yahoo_finance import YahooFinanceConnector
+from src.analysis import TechnicalAnalysis, SupportResistance, DataAnalyzer, OptionsAnalysis
 
 # Configure Streamlit
 st.set_page_config(
@@ -54,7 +49,9 @@ interval = st.sidebar.selectbox(
 analyze_button = st.sidebar.button("🔍 Fetch & Analyze", use_container_width=True)
 
 # Main Analysis
-if analyze_button or symbol:
+if not analyze_button:
+    st.info("Enter a stock symbol and click 'Fetch & Analyze' to begin.")
+else:
     try:
         with st.spinner(f"Fetching data for {symbol}..."):
             # Initialize connectors
